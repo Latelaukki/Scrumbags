@@ -170,4 +170,3 @@ ja paina `Enter`.
 * Toiminnallisuus on testattu kaikilla tasoilla automaattisesti ja kattavasti, minkä lisäksi on suoritettu tarvittava määrä tutkivaa testausta
 * Toiminnallisuus on integroitu onnistuneesti osaksi muuta sovellusta
 * Sovelluksen toiminta on dokumentoitu
-
