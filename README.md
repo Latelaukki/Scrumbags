@@ -171,3 +171,4 @@ ja paina `Enter`.
 * Toiminnallisuus on integroitu onnistuneesti osaksi muuta sovellusta
 * Sovelluksen toiminta on dokumentoitu
 
+
