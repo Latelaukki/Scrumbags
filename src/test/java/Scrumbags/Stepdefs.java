@@ -258,12 +258,12 @@ public class Stepdefs {
         input.add("3");
     }
 
-    @When("valid link name {string}, publisher {string}, url {string} and rrs {string} are entered and input is confirmed")
-    public void validLinkNamePublisherUrlAndRrsAreEnteredAndInputIsConfirmed(String name, String publisher, String url, String rrs) {
+    @When("valid link name {string}, publisher {string}, url {string} and rss {string} are entered and input is confirmed")
+    public void validLinkNamePublisherUrlAndrssAreEnteredAndInputIsConfirmed(String name, String publisher, String url, String rss) {
         input.add(name);
         input.add(publisher);
         input.add(url);
-        input.add(rrs);
+        input.add(rss);
         input.add("k");
 
         runUi();
@@ -274,18 +274,18 @@ public class Stepdefs {
         assertTrue(io.getOutput().contains("podcast lisätty onnistuneesti."));
     }
 
-    @When("valid link name {string}, publisher {string}, url {string} and rrs {string} are entered twice and input is confirmed")
-    public void validLinkNamePublisherUrlAndRrsAreEnteredTwiceAndInputIsConfirmed(String name, String publisher, String url, String rrs) {
+    @When("valid link name {string}, publisher {string}, url {string} and rss {string} are entered twice and input is confirmed")
+    public void validLinkNamePublisherUrlAndrssAreEnteredTwiceAndInputIsConfirmed(String name, String publisher, String url, String rss) {
         input.add(name);
         input.add(publisher);
         input.add(url);
-        input.add(rrs);
+        input.add(rss);
         input.add("k");
         input.add("3");
         input.add(name);
         input.add(publisher);
         input.add(url);
-        input.add(rrs);
+        input.add(rss);
         input.add("k");
 
         runUi();

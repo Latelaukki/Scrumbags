@@ -35,13 +35,13 @@ public class Service {
         return this.database.addLink(link);
     }
 
-    public boolean addPodcast(String name, String publisher, String url, String rrs) {
+    public boolean addPodcast(String name, String publisher, String url, String rss) {
         if (getPodcastsByName(name) != null) {
             System.out.println("Virhe: Podcastin nimi on jo käytössä.");
             return false;
         }
 
-        Podcast podcast = new Podcast(name, publisher, url, rrs);
+        Podcast podcast = new Podcast(name, publisher, url, rss);
         return this.database.addPodcast(podcast);
     }
 

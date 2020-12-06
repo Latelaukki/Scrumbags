@@ -46,7 +46,7 @@ public class Ui {
                     + "2) Lisää linkki\n"
                     + "3) Lisää podcast\n"
                     + "4) Hae kirjamerkkejä\n"
-                    + "5) Listaa kaikki kirjamerkit\n\n"
+                    + "5) Listaa kaikki lukuvinkit\n\n"
                     + "Anna komennon numero:");
             komento = io.nextLine();
             /**
@@ -277,7 +277,7 @@ public class Ui {
         String nimi;
         String julkaisija;
         String url;
-        String rrs;
+        String rss;
 
         io.print("Anna podcastin nimi (pakollinen tieto).");
         nimi = promptTextInput("Anna kirjan nimi (vähintään yhden merkin pituinen).", false);
@@ -288,18 +288,18 @@ public class Ui {
         io.print("Anna url (ohita syöttämällä \"q\").");
         url = promptTextInput("Anna ISBN tai ohita syöttämällä \"q\"", true);
 
-        io.print("Anna podcastin RRS (ohita syöttämällä \"q\")");
-        rrs = promptTextInput("Anna sivumäärä tai ohita syöttämällä \"q\"", true);
+        io.print("Anna podcastin rss (ohita syöttämällä \"q\")");
+        rss = promptTextInput("Anna sivumäärä tai ohita syöttämällä \"q\"", true);
 
         io.print("LISÄTÄÄN PODCAST: \n"
                 + "NIMI: " + nimi + "\n"
                 + "julkaisija: " + julkaisija + "\n"
                 + "url: " + url + "\n"
-                + "rrs: " + rrs + "\n"
+                + "rss: " + rss + "\n"
                 + "ONKO OK? [k/e]");
         if (yesNo()) {
 
-            if (service.addPodcast(nimi, julkaisija, url, rrs)) {
+            if (service.addPodcast(nimi, julkaisija, url, rss)) {
                 io.print("podcast lisätty onnistuneesti.");
             } else {
                 io.print("Podcastin lisääminen ei onnistunut.");

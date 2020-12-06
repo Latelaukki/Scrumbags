@@ -27,10 +27,10 @@ Feature: User can create new bookmark
 
     Scenario: user can create new bookmark for podcast
         Given command add podcast is selected
-        When  valid link name "Elämänohjeita with Rölli-peikko", publisher "Rölli-peikko", url "rolli.fi" and rrs "ASCDEFGH" are entered and input is confirmed
+        When  valid link name "Elämänohjeita with Rölli-peikko", publisher "Rölli-peikko", url "rolli.fi" and rss "ASCDEFGH" are entered and input is confirmed
         Then  new bookmark for a podcast is created
 
     Scenario: user can create new bookmark for podcast
         Given command add podcast is selected
-        When  valid link name "Elämänohjeita with Rölli-peikko", publisher "Rölli-peikko", url "rolli.fi" and rrs "ASCDEFGH" are entered twice and input is confirmed
+        When  valid link name "Elämänohjeita with Rölli-peikko", publisher "Rölli-peikko", url "rolli.fi" and rss "ASCDEFGH" are entered twice and input is confirmed
         Then  cannot add another podcast with same name
