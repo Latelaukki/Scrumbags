@@ -5,15 +5,15 @@
  */
 package Scrumbags;
 
+import java.util.List;
+import java.util.ArrayList;
+import static org.junit.Assert.*;
+import java.io.File;
 import io.cucumber.java.Before;
 import io.cucumber.java.After;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
-import java.util.List;
-import static org.junit.Assert.*;
-import java.io.File;
-import java.util.ArrayList;
 
 import Scrumbags.database.*;
 import Scrumbags.ui.*;
@@ -37,12 +37,16 @@ public class Stepdefs {
         dao = new Database("jdbc:sqlite:" + testDatabaseName);
         input = new ArrayList<>();
         service = new Service(dao);
+                
         Book bonanza = new Book("Bonanza", "David R Greenland", "9781593935412", 170, 2015);
         Book lofoten = new Book("Lofoten Rock", "Chris Craggs, Thorbjørn Enevold","9781873341667", 319, 2008);
+        
         Podcast urheilucast = new Podcast("Urheilucast", "Esko Seppänen", "https://soundcloud.com/urheilucast", "---");
         Podcast kokkicast = new Podcast("Kokkicast", "---", "https://soundcloud.com/kokkicast", "---");
+        
         Link google = new Link("Google", "http://www.google.com");
         Link yle = new Link("YLE", "http://www.yle.fi");
+        
         dao.addBook(bonanza);
         dao.addBook(lofoten);
         dao.addPodcast(urheilucast);
@@ -52,7 +56,7 @@ public class Stepdefs {
     }
 
     @After
-    public void tearDown() {
+    public void tearDown() {        
         try {
             File db = new File(testDatabaseName);
             db.delete();
