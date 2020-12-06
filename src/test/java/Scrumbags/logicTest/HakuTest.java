@@ -142,4 +142,22 @@ public class HakuTest {
         }
         assertEquals(true, found);
     }
+
+    //PULL REQUEST LISÄYS BY Themis1
+    @Test
+    public void bookSearchIsNotNull() {
+        this.service.addBook("ABC", "Taavi", "123-14", 50, 2005);
+        ArrayList<Book> booklist = this.service.getBooks("Taavi", "1");
+        boolean found = this.service.bookNameExists("ABC");
+        assertEquals(true, found);
+    }
+
+    @Test
+    public void bookSearchIsNull() {
+        this.service.addBook("ABC", "Taavi", "123-14", 50, 2005);
+        ArrayList<Book> booklist = this.service.getBooks("Taavi", "1");
+        boolean found = this.service.bookNameExists("ABCD");
+        assertEquals(false, found);
+    }    
+
 }

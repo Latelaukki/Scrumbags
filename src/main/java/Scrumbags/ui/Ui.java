@@ -64,6 +64,8 @@ public class Ui {
                 search();
             } else if (komento.equals("5")) {
                 getAll();
+            } else {
+                io.print("Tälläistä komentoa ei ole olemassa.");
             }
         }
     }
