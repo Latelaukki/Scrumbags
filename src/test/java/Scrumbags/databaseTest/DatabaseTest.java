@@ -35,6 +35,8 @@ public class DatabaseTest {
     private Link tira = new Link("Tietorakenteet ja algoritmit", "https://tira-s19.mooc.fi/");
     private Link ohtu = new Link("Ohjelmistotuotanto", "https://ohjelmistotuotanto-hy.github.io/");
 
+    private Podcast sodoma = new Podcast("Radio Sodoma", "YLE Podcast", "---", "---");
+
     @Before
     public void setUp() throws ClassNotFoundException {
         db = new Database("jdbc:sqlite:" + testDbName);
@@ -175,5 +177,27 @@ public class DatabaseTest {
         
         assertNull(db.getBooksByName(tirakirja.getName()));
         assertTrue(db.getBooksByName(scrumbook.getName()).contains(scrumbook));
+    }
+
+    @Test
+    public void addingValidPodcastReturnsTrue() {
+        assertTrue(db.addPodcast(sodoma));
+    }
+
+    @Test
+    public void existingPodcastCanBeFoundByName() {
+        assertTrue(db.getPodcastsByName("Radio Sodoma").contains(sodoma));
+    }
+
+    @Test
+    public void removingExistingPodcastReturnsTrue(){
+        db.addPodcast(sodoma);
+        assertTrue(db.removePodcast("Radio Sodoma"));
+    }
+
+    @Test void afterRemovingExistingPodcastItCannotBeFoundByName() {
+        db.addPodcast(sodoma);
+        db.removePodcast("Radio Sodoma");
+        assertFalse(db.getPodcastsByName("Radio Sodoma").contains(sodoma));
     }
 }
