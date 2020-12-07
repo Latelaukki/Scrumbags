@@ -189,20 +189,27 @@ public class DatabaseTest {
 
     @Test
     public void existingPodcastCanBeFoundByName() {
+        db.addPodcast(sodoma);
         assertTrue(db.getPodcastsByName("Radio Sodoma").contains(sodoma));
     }
 
     @Test
-    public void removingExistingPodcastReturnsTrue(){
+    public void removingExistingPodcastReturnsTrue() {
         db.addPodcast(sodoma);
         assertTrue(db.removePodcast("Radio Sodoma"));
     }
 
-    @Test void afterRemovingExistingPodcastItCannotBeFoundByName() {
+    @Test
+    public void afterRemovingExistingPodcastItCannotBeFoundByName() {
         db.addPodcast(sodoma);
         db.removePodcast("Radio Sodoma");
-        assertFalse(db.getPodcastsByName("Radio Sodoma").contains(sodoma));
+
+        ArrayList<Podcast> results = db.getPodcastsByName("Radio Sodoma");
+        if (results != null) {
+            assertFalse(results.contains(sodoma));
+        }
     }
+
     public void getAllBooksReturnsCorrectAmountOfBooks() {
         assertTrue(db.getAllBooks().size() == 1);
         db.addBook(pizze);
