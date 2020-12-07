@@ -403,38 +403,52 @@ public class Stepdefs {
 
     @Given("search attribute {string} is selected")
     public void searchAttributeSelected(String attribute) {
-        if (attribute.equals("book name")) {
+        if (attribute.equals ("author")) {
+            input.add("1");
+        } else if (attribute.equals("book name")) {
             input.add("2");
+        } else if (attribute.equals("publishing year")) {
+            input.add("3");
+        } else if (attribute.equals("ISBN")) {
+            input.add("4");
         }
     }
 
-    @When("delete of item number {int} is selected and {}confirmed")
-    public void deleteChosenAndConfirmed(int number, String not) {
-        input.add(""+number);
-        System.out.println(not);
-        if (not.isEmpty()) {
-            input.add("k");
-        } else if (not.equals("not ")) {
-            input.add("e");
-        }
-
-        runUi();
-    }
-
-    @Then("{word} is {}deleted")
-    public void deletePerformed(String type, String not) {
-        String string = "";
-        if (type.equals("book")) {
-            string = "Kirja";
-        }
-        if (not.equals("not ")) {
-            assertFalse(io.getOutput().contains(string + " poistettu onnistuneesti"));
-        }
-        if (not.isEmpty()) {
-            assertTrue(io.getOutput().contains(string + " poistettu onnistuneesti"));
-        }
+        @When("delete of item number {int} is selected and {}confirmed")
+        public void deleteChosenAndConfirmed
+        (int number, String not
         
-    }
+            ) {
+        input.add("" + number);
+            System.out.println(not);
+            if (not.isEmpty()) {
+                input.add("k");
+            } else if (not.equals("not ")) {
+                input.add("e");
+            }
+
+            runUi();
+        }
+
+        @Then("{word} is {}deleted")
+        public void deletePerformed
+        (String type, String not
+        
+            ) {
+        String string = "";
+            if (type.equals("book")) {
+                string = "Kirja";
+            }
+            if (not.equals("not ")) {
+                assertFalse(io.getOutput().contains(string + " poistettu onnistuneesti"));
+            }
+            if (not.isEmpty()) {
+                assertTrue(io.getOutput().contains(string + " poistettu onnistuneesti"));
+            }
+
+        }
+
+    
 
     private void runUi() {
         io = new StubIO(input);
