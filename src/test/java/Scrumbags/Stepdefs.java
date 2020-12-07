@@ -37,16 +37,16 @@ public class Stepdefs {
         dao = new Database("jdbc:sqlite:" + testDatabaseName);
         input = new ArrayList<>();
         service = new Service(dao);
-                
+
         Book bonanza = new Book("Bonanza", "David R Greenland", "9781593935412", 170, 2015);
-        Book lofoten = new Book("Lofoten Rock", "Chris Craggs, Thorbjørn Enevold","9781873341667", 319, 2008);
-        
+        Book lofoten = new Book("Lofoten Rock", "Chris Craggs, Thorbjørn Enevold", "9781873341667", 319, 2008);
+
         Podcast urheilucast = new Podcast("Urheilucast", "Esko Seppänen", "https://soundcloud.com/urheilucast", "---");
         Podcast kokkicast = new Podcast("Kokkicast", "---", "https://soundcloud.com/kokkicast", "---");
-        
+
         Link google = new Link("Google", "http://www.google.com");
         Link yle = new Link("YLE", "http://www.yle.fi");
-        
+
         dao.addBook(bonanza);
         dao.addBook(lofoten);
         dao.addPodcast(urheilucast);
@@ -56,7 +56,7 @@ public class Stepdefs {
     }
 
     @After
-    public void tearDown() {        
+    public void tearDown() {
         try {
             File db = new File(testDatabaseName);
             db.delete();
@@ -69,12 +69,11 @@ public class Stepdefs {
     public void commandSearchIsSelected() {
         input.add("4");
     }
-    
+
     @Given("command list is selected")
     public void commandListIsSelected() {
         input.add("5");
     }
-   
 
     @Given("command search book by isbn is selected")
     public void commandSearchBookByIsbnIsSelected() {
@@ -238,7 +237,7 @@ public class Stepdefs {
 
         runUi();
     }
-    
+
     @When("valid link name {string} and already taken url {string} are entered and input is confirmed")
     public void validLinkNameAndTakenUrlAreEntered(String name, String url) {
         input.add(name);
@@ -320,56 +319,56 @@ public class Stepdefs {
         input.add("q");
         runUi();
     }
-    
+
     @Given("command search link is selected")
     public void searchLinkIsSelected() {
         input.add("2");
     }
-    
+
     @When("existing link {string} is entered")
     public void existingLinkIsEntered(String name) {
         input.add(name);
         input.add("q");
         runUi();
     }
-    
+
     @When("nonexisting link {string} is entered")
     public void nonexistingLinkIsEntered(String name) {
         input.add(name);
         input.add("q");
         runUi();
     }
-    
+
     @When("list links is selected")
     public void commandListLinksIsSelected() {
         input.add("2");
         runUi();
     }
-    
+
     @When("list podcasts is selected")
     public void commandListPodcastsIsSelected() {
         input.add("3");
         runUi();
     }
-    
+
     @When("list books is selected")
     public void commandListBooksIsSelected() {
         input.add("1");
         runUi();
     }
-    
+
     @When("list all is selected")
     public void commandListAllIsSelected() {
         input.add("4");
         runUi();
     }
-    
+
     @When("wrong parameter {string} is entered")
     public void wrongParameterIsEntered(String string) {
         input.add("string");
         runUi();
     }
-    
+
     @Then("commandlist is shown again")
     public void commandListIsShown() {
         boolean found = false;
@@ -381,14 +380,66 @@ public class Stepdefs {
         assertTrue(found);
     }
 
-    @Then ("new bookmark for a link is not created") 
+    @Then("new bookmark for a link is not created")
     public void linkIsNotCreated() {
         assertTrue(io.getOutput().contains("Linkin lisääminen ei onnistunut."));
     }
-    
+
+    @Given("command delete is selected")
+    public void deleteSelected() {
+        input.add("6");
+    }
+
+    @Given("type {string} is selected")
+    public void typeIsSelected(String type) {
+        if (type.equals("book")) {
+            input.add("1");
+        } else if (type.equals("link")) {
+            input.add("2");
+        } else if (type.equals("podcast")) {
+            input.add("3");
+        }
+    }
+
+    @Given("search attribute {string} is selected")
+    public void searchAttributeSelected(String attribute) {
+        if (attribute.equals("book name")) {
+            input.add("2");
+        }
+    }
+
+    @When("delete of item number {int} is selected and {}confirmed")
+    public void deleteChosenAndConfirmed(int number, String not) {
+        input.add(""+number);
+        System.out.println(not);
+        if (not.isEmpty()) {
+            input.add("k");
+        } else if (not.equals("not ")) {
+            input.add("e");
+        }
+
+        runUi();
+    }
+
+    @Then("{word} is {}deleted")
+    public void deletePerformed(String type, String not) {
+        String string = "";
+        if (type.equals("book")) {
+            string = "Kirja";
+        }
+        if (not.equals("not ")) {
+            assertFalse(io.getOutput().contains(string + " poistettu onnistuneesti"));
+        }
+        if (not.isEmpty()) {
+            assertTrue(io.getOutput().contains(string + " poistettu onnistuneesti"));
+        }
+        
+    }
+
     private void runUi() {
         io = new StubIO(input);
         ui = new Ui(io, service);
         ui.run(true);
     }
+
 }
