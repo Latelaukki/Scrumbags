@@ -1,4 +1,4 @@
-Feature: User can delete books
+Feature: User can delete book
 
     Scenario: user can delete existing book by name
         Given command delete is selected

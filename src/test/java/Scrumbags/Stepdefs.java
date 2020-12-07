@@ -316,7 +316,6 @@ public class Stepdefs {
     @When("nonexisting podcast {string} is selected")
     public void nonexistingPodcastIsSelected(String name) {
         input.add(name);
-        input.add("q");
         runUi();
     }
 
@@ -328,14 +327,12 @@ public class Stepdefs {
     @When("existing link {string} is entered")
     public void existingLinkIsEntered(String name) {
         input.add(name);
-        input.add("q");
         runUi();
     }
 
     @When("nonexisting link {string} is entered")
     public void nonexistingLinkIsEntered(String name) {
         input.add(name);
-        input.add("q");
         runUi();
     }
 
@@ -403,7 +400,7 @@ public class Stepdefs {
 
     @Given("search attribute {string} is selected")
     public void searchAttributeSelected(String attribute) {
-        if (attribute.equals ("author")) {
+        if (attribute.equals("author")) {
             input.add("1");
         } else if (attribute.equals("book name")) {
             input.add("2");
@@ -414,41 +411,37 @@ public class Stepdefs {
         }
     }
 
-        @When("delete of item number {int} is selected and {}confirmed")
-        public void deleteChosenAndConfirmed
-        (int number, String not
-        
-            ) {
+    @When("delete of item number {int} is selected and {}confirmed")
+    public void deleteChosenAndConfirmed(int number, String not
+    ) {
         input.add("" + number);
-            System.out.println(not);
-            if (not.isEmpty()) {
-                input.add("k");
-            } else if (not.equals("not ")) {
-                input.add("e");
-            }
-
-            runUi();
+        if (not.isEmpty()) {
+            input.add("k");
+        } else if (not.equals("not ")) {
+            input.add("e");
         }
 
-        @Then("{word} is {}deleted")
-        public void deletePerformed
-        (String type, String not
-        
-            ) {
+        runUi();
+    }
+
+    @Then("{word} is {}deleted")
+    public void deletePerformed(String type, String not) {
         String string = "";
-            if (type.equals("book")) {
-                string = "Kirja";
-            }
-            if (not.equals("not ")) {
-                assertFalse(io.getOutput().contains(string + " poistettu onnistuneesti"));
-            }
-            if (not.isEmpty()) {
-                assertTrue(io.getOutput().contains(string + " poistettu onnistuneesti"));
-            }
-
+        if (type.equals("book")) {
+            string = "Kirja";
+        } else if (type.equals("link")) {
+            string = "Linkki";
+        } else if (type.equals("podcast")) {
+            string = "Podcast";
         }
 
-    
+        if (not.equals("not ")) {
+            assertFalse(io.getOutput().contains(string + " poistettu onnistuneesti"));
+        } else if (not.isEmpty()) {
+            assertTrue(io.getOutput().contains(string + " poistettu onnistuneesti"));
+        }
+
+    }
 
     private void runUi() {
         io = new StubIO(input);
