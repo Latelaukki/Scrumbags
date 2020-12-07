@@ -46,7 +46,8 @@ public class Ui {
                     + "2) Lisää linkki\n"
                     + "3) Lisää podcast\n"
                     + "4) Hae kirjamerkkejä\n"
-                    + "5) Listaa kaikki lukuvinkit\n\n"
+                    + "5) Listaa kaikki lukuvinkit\n"
+                    + "6) Poista lukuvinkki\n\n"
                     + "Anna komennon numero:");
             komento = io.nextLine();
             /**
@@ -64,6 +65,8 @@ public class Ui {
                 search();
             } else if (komento.equals("5")) {
                 getAll();
+            } else if (komento.equals("6")) {
+                delete();
             } else {
                 io.print("Tälläistä komentoa ei ole olemassa.");
             }
@@ -75,7 +78,7 @@ public class Ui {
         io.print("1) kaikki kirjat");
         io.print("2) kaikki linkit");
         io.print("3) kaikki podcastit");
-        io.print("4) kaikki kirjamerkit");
+        io.print("4) kaikki lukuvinkit");
         komento = promptTextInput("valitse \"1\" (kaikki kirjat), \"2\" (kaikki linkit), \"3\" (kaikki podcastit) tai \"4\" (kaikki kirjamerkit)", false);
         if (komento.equals("1")) {
             getAllBooks();
@@ -145,6 +148,114 @@ public class Ui {
         }
     }
 
+    private void delete() {
+        io.print("Haluatko poistaa:");
+        io.print("1) Kirjan");
+        io.print("2) Linkin?");
+        io.print("3) Podcastin?");
+        komento = io.nextLine();
+        if (komento.equals("1")) {
+            deleteBook();
+        } else if (komento.equals("2")) {
+            deleteLink();
+        } else if (komento.equals("3")) {
+            deletePodcast();
+        }
+    }
+
+    private void deletePodcast() {
+        io.print("Anna poistettavan podcastin nimi:");
+        String name = io.nextLine();
+
+        ArrayList<Podcast> podcastlist = this.service.getPodcastsByName(name);
+        if (podcastlist != null) {
+            int i = 1;
+            for (Podcast p : podcastlist) {
+                io.print("nro: " + i + ". " + p.toString() + "\n");
+                i++;
+            }
+            io.print("Anna poistettavan podcastin numero:");
+            komento = io.nextLine();
+            
+            io.print("Haluatko varmasti POISTAA LINKIN NRO. " + komento +": [k/e]");
+            String ke = io.nextLine();
+            if (ke.equals("k")) {
+                if (this.service.removePodcast(podcastlist, komento)) {
+                    io.print("Podcast poistettu onnistuneesti");
+                } else {
+                    io.print("Podcastin poistaminen epäonnistui");
+                }
+            }
+        } else {
+            io.print("Ei tuloksia.");
+        }
+    }
+
+    private void deleteLink() {
+        io.print("Anna poistettavan linkin nimi:");
+        String name = io.nextLine();
+        ArrayList<Link> linklist = this.service.getLinksByName(name);
+        if (linklist != null) {
+            int i = 1;
+            for (Link l : linklist) {
+                io.print("nro: " + i + ". " + l.toString() + "\n");
+                i++;
+            }
+            io.print("Anna poistettavan linkin numero:");
+            komento = io.nextLine();
+
+            io.print("Haluatko varmasti POISTAA LINKIN NRO. " + komento +": [k/e]");
+            String ke = io.nextLine();
+            if (ke.equals("k")) {
+                if (this.service.removeLink(linklist, komento)) {
+                    io.print("Linkki poistettu onnistuneesti");
+                } else {
+                    io.print("Linkin poistaminen epäonnistui");
+                }
+            }
+        } else {
+            io.print("Ei tuloksia.");
+        }
+    }
+
+    private void deleteBook() {
+        io.print("Hakuperuste poistettavalle kirjalle:");
+        io.print("1) kirjailijan nimi");
+        io.print("2) kirjan nimi");
+        io.print("3) julkaisuvuosi");
+        io.print("4) ISBN");
+        komento = io.nextLine();
+
+        if (komento.equals("1") || komento.equals("2")) {
+            io.print("Syötä nimi:");
+        } else if (komento.equals("3") || komento.equals("4")) {
+            io.print("Syötä luku:");
+        }
+        String search = io.nextLine();
+        ArrayList<Book> booklist = this.service.getBooks(search, komento);
+        if (booklist != null) {
+            int i = 1;
+            for (Book b : booklist) {
+                io.print("nro: " + i + ". " + b.toString() + "\n");
+                i++;
+            }
+            io.print("Anna poistettavan kirjan numero:");
+            komento = io.nextLine();
+
+            io.print("Haluatko varmasti POISTAA KIRJAN NRO. " + komento +": [k/e]");
+            String ke = io.nextLine();
+            if (ke.equals("k")) {
+                if (this.service.removeBook(booklist, komento)) {
+                    io.print("Kirja poistettu onnistuneesti");
+                } else {
+                    io.print("Kirjan poistaminen epäonnistui");
+                }
+            }
+        } else {
+            io.print("Ei tuloksia.");
+        }
+    }
+
     private void searchBook() {
         io.print("Valitse hakuperuste:");
         io.print("1) kirjailijan nimi");
@@ -166,21 +277,9 @@ public class Ui {
                 io.print("nro: " + i + ". " + b.toString() + "\n");
                 i++;
             }
-            io.print("Haluatko poistaa jonkun kirjoista: [k/e]");
-            komento = io.nextLine();
-
-            if (komento.equals("k")) {
-                removeBook(booklist);
-            }
         } else {
             io.print("Ei tuloksia.");
         }
-    }
-
-    private void removeBook(ArrayList<Book> booklist) {
-        io.print("Anna kirjan nro, jonka haluat poistaa");
-        komento = io.nextLine();
-        this.service.removeBook(booklist, komento);
     }
 
     private void searchLink() {
@@ -193,21 +292,9 @@ public class Ui {
                 io.print("nro: " + i + ". " + l.toString() + "\n");
                 i++;
             }
-            io.print("Haluatko poistaa jonkun linkeistä: [k/e]");
-            komento = io.nextLine();
-
-            if (komento.equals("k")) {
-                removeLink(linklist);
-            }
         } else {
             io.print("Ei tuloksia.");
         }
-    }
-
-    private void removeLink(ArrayList<Link> linklist) {
-        io.print("Anna linkin nro, jonka haluat poistaa");
-        komento = io.nextLine();
-        this.service.removeLink(linklist, komento);
     }
 
     private void searchPodcast() {
@@ -219,22 +306,10 @@ public class Ui {
             for (Podcast p : podcastlist) {
                 io.print(p.toString());
             }
-            io.print("Haluatko poistaa jonkun linkeistä: [k/e]");
-            komento = io.nextLine();
-            
-            if (komento.equals("k")) {
-                removePodcast(podcastlist);
-            }
         } else {
             io.print("Ei tuloksia.");
         }
 
-    }
-
-    private void removePodcast(ArrayList<Podcast> podlist) {
-        io.print("Anna podcastin nro, jonka haluat poistaa");
-        komento = io.nextLine();
-        this.service.removePodcast(podlist, komento);
     }
 
     private void addBook() {
