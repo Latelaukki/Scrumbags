@@ -1,10 +1,10 @@
 package Scrumbags.ui;
 
 // Tästä pitänee tehdä injektio
-import java.util.Scanner;
 import Scrumbags.database.*;
 import Scrumbags.logic.*;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Lukuvinkkipalvelun tekstipohjainen käyttöliittymä
@@ -13,7 +13,6 @@ public class Ui {
 
     private IO io;
     private Service service;
-    private String[] str;
     private Dao database;
     private String komento;
 
@@ -46,7 +45,8 @@ public class Ui {
                     + "1) Lisää kirja\n"
                     + "2) Lisää linkki\n"
                     + "3) Lisää podcast\n"
-                    + "4) Hae\n\n"
+                    + "4) Hae kirjamerkkejä\n"
+                    + "5) Listaa kaikki lukuvinkit\n\n"
                     + "Anna komennon numero:");
             komento = io.nextLine();
             /**
@@ -62,9 +62,71 @@ public class Ui {
                 addPodcast();
             } else if (komento.equals("4")) {
                 search();
-            } /*else if (komento.equals("4")) {
-                remove();
-            }*/
+            } else if (komento.equals("5")) {
+                getAll();
+            } else {
+                io.print("Tälläistä komentoa ei ole olemassa.");
+            }
+        }
+    }
+
+    private void getAll() {
+        io.print("Listaa:");
+        io.print("1) kaikki kirjat");
+        io.print("2) kaikki linkit");
+        io.print("3) kaikki podcastit");
+        io.print("4) kaikki kirjamerkit");
+        komento = promptTextInput("valitse \"1\" (kaikki kirjat), \"2\" (kaikki linkit), \"3\" (kaikki podcastit) tai \"4\" (kaikki kirjamerkit)", false);
+        if (komento.equals("1")) {
+            getAllBooks();
+        } else if (komento.equals("2")) {
+            getAllLinks();
+        } else if (komento.equals("3")) {
+            getAllPodcasts();
+        } else if (komento.equals("4")) {
+            getAllBookmarks();
+        }
+    }
+
+    private void getAllBooks() {
+        try {
+            List<Object> books = new ArrayList<>(service.getAllBooks());
+            printBookmarks(books, "Kirjat:");
+        } catch (NullPointerException e) {
+            io.print("\nEi lisättyjä kirjoja.");
+        }
+    }
+
+    private void getAllLinks() {
+        try {
+            List<Object> links = new ArrayList<>(service.getAllLinks());
+            printBookmarks(links, "Linkit:");
+        } catch (NullPointerException e) {
+            io.print("\nEi lisättyjä linkkejä.");
+        }
+    }
+
+    private void getAllPodcasts() {
+        try {
+            List<Object> podcasts = new ArrayList<>(service.getAllPodcasts());
+            printBookmarks(podcasts, "Podcastit:");
+        } catch (NullPointerException e) {
+            io.print("\nEi lisättyjä podcasteja.");
+        }
+    }
+
+    private void getAllBookmarks() {
+        getAllBooks();
+        getAllLinks();
+        getAllPodcasts();
+    }
+
+    private void printBookmarks(List<Object> bookmarks, String header) {
+        io.print("\n" + header);
+        io.print("Yhteensä " + bookmarks.size() + " kpl\n");
+        int i = 1;
+        for (Object o : bookmarks) {
+            io.print("nro. " + i++ + o.toString() +"\n");
         }
     }
 
@@ -77,7 +139,7 @@ public class Ui {
         if (komento.equals("1")) {
             searchBook();
         } else if (komento.equals("2")) {
-            searchLink();   
+            searchLink();
         } else if (komento.equals("3")) {
             searchPodcast();
         }
@@ -106,7 +168,7 @@ public class Ui {
             }
             io.print("Haluatko poistaa jonkun kirjoista: [k/e]");
             komento = io.nextLine();
-        
+
             if (komento.equals("k")) {
                 removeBook(booklist);
             }
@@ -114,7 +176,7 @@ public class Ui {
             io.print("Ei tuloksia.");
         }
     }
-    
+
     private void removeBook(ArrayList<Book> booklist) {
         io.print("Anna kirjan nro, jonka haluat poistaa");
         komento = io.nextLine();
@@ -133,7 +195,7 @@ public class Ui {
             }
             io.print("Haluatko poistaa jonkun linkeistä: [k/e]");
             komento = io.nextLine();
-        
+
             if (komento.equals("k")) {
                 removeLink(linklist);
             }
@@ -141,7 +203,7 @@ public class Ui {
             io.print("Ei tuloksia.");
         }
     }
-    
+
     private void removeLink(ArrayList<Link> linklist) {
         io.print("Anna linkin nro, jonka haluat poistaa");
         komento = io.nextLine();
@@ -217,7 +279,7 @@ public class Ui {
         String nimi;
         String julkaisija;
         String url;
-        String rrs;
+        String rss;
 
         io.print("Anna podcastin nimi (pakollinen tieto).");
         nimi = promptTextInput("Anna kirjan nimi (vähintään yhden merkin pituinen).", false);
@@ -228,18 +290,18 @@ public class Ui {
         io.print("Anna url (ohita syöttämällä \"q\").");
         url = promptTextInput("Anna ISBN tai ohita syöttämällä \"q\"", true);
 
-        io.print("Anna podcastin RRS (ohita syöttämällä \"q\")");
-        rrs = promptTextInput("Anna sivumäärä tai ohita syöttämällä \"q\"", true);
+        io.print("Anna podcastin rss (ohita syöttämällä \"q\")");
+        rss = promptTextInput("Anna sivumäärä tai ohita syöttämällä \"q\"", true);
 
-        io.print("LISÄTÄÄN KIRJA: \n"
+        io.print("LISÄTÄÄN PODCAST: \n"
                 + "NIMI: " + nimi + "\n"
                 + "julkaisija: " + julkaisija + "\n"
                 + "url: " + url + "\n"
-                + "rrs: " + rrs + "\n"
+                + "rss: " + rss + "\n"
                 + "ONKO OK? [k/e]");
         if (yesNo()) {
 
-            if (service.addPodcast(nimi, julkaisija, url, rrs)) {
+            if (service.addPodcast(nimi, julkaisija, url, rss)) {
                 io.print("podcast lisätty onnistuneesti.");
             } else {
                 io.print("Podcastin lisääminen ei onnistunut.");

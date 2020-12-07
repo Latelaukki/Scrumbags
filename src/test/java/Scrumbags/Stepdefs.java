@@ -5,15 +5,15 @@
  */
 package Scrumbags;
 
+import java.util.List;
+import java.util.ArrayList;
+import static org.junit.Assert.*;
+import java.io.File;
 import io.cucumber.java.Before;
 import io.cucumber.java.After;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.When;
 import io.cucumber.java.en.Then;
-import java.util.List;
-import static org.junit.Assert.*;
-import java.io.File;
-import java.util.ArrayList;
 
 import Scrumbags.database.*;
 import Scrumbags.ui.*;
@@ -37,14 +37,26 @@ public class Stepdefs {
         dao = new Database("jdbc:sqlite:" + testDatabaseName);
         input = new ArrayList<>();
         service = new Service(dao);
+                
         Book bonanza = new Book("Bonanza", "David R Greenland", "9781593935412", 170, 2015);
+        Book lofoten = new Book("Lofoten Rock", "Chris Craggs, Thorbjørn Enevold","9781873341667", 319, 2008);
+        
         Podcast urheilucast = new Podcast("Urheilucast", "Esko Seppänen", "https://soundcloud.com/urheilucast", "---");
+        Podcast kokkicast = new Podcast("Kokkicast", "---", "https://soundcloud.com/kokkicast", "---");
+        
+        Link google = new Link("Google", "http://www.google.com");
+        Link yle = new Link("YLE", "http://www.yle.fi");
+        
         dao.addBook(bonanza);
+        dao.addBook(lofoten);
         dao.addPodcast(urheilucast);
+        dao.addPodcast(kokkicast);
+        dao.addLink(google);
+        dao.addLink(yle);
     }
 
     @After
-    public void tearDown() {
+    public void tearDown() {        
         try {
             File db = new File(testDatabaseName);
             db.delete();
@@ -57,6 +69,12 @@ public class Stepdefs {
     public void commandSearchIsSelected() {
         input.add("4");
     }
+    
+    @Given("command list is selected")
+    public void commandListIsSelected() {
+        input.add("5");
+    }
+   
 
     @Given("command search book by isbn is selected")
     public void commandSearchBookByIsbnIsSelected() {
@@ -75,8 +93,6 @@ public class Stepdefs {
         runUi();
     }
 
-    // Tämän testin voisi muotoilla paremmin .feature -tiedostoon että missä
-    // muodossa kirjan tietojen tuloste tarkistetaan
     @Then("bookmark details {string} are shown in terminal")
     public void bookmarkDetailsAreShown(String string) {
         boolean found = false;
@@ -91,7 +107,6 @@ public class Stepdefs {
     @When("an invalid isbn {string} is entered")
     public void inValidIsbnIsEntered(String isbn) {
         input.add(isbn);
-
         runUi();
     }
 
@@ -223,6 +238,15 @@ public class Stepdefs {
 
         runUi();
     }
+    
+    @When("valid link name {string} and already taken url {string} are entered and input is confirmed")
+    public void validLinkNameAndTakenUrlAreEntered(String name, String url) {
+        input.add(name);
+        input.add(url);
+        input.add("k");
+
+        runUi();
+    }
 
     @Then("new bookmark for a link is created")
     public void bookmarkForLinkCreated() {
@@ -234,12 +258,12 @@ public class Stepdefs {
         input.add("3");
     }
 
-    @When("valid link name {string}, publisher {string}, url {string} and rrs {string} are entered and input is confirmed")
-    public void validLinkNamePublisherUrlAndRrsAreEnteredAndInputIsConfirmed(String name, String publisher, String url, String rrs) {
+    @When("valid link name {string}, publisher {string}, url {string} and rss {string} are entered and input is confirmed")
+    public void validLinkNamePublisherUrlAndrssAreEnteredAndInputIsConfirmed(String name, String publisher, String url, String rss) {
         input.add(name);
         input.add(publisher);
         input.add(url);
-        input.add(rrs);
+        input.add(rss);
         input.add("k");
 
         runUi();
@@ -250,18 +274,18 @@ public class Stepdefs {
         assertTrue(io.getOutput().contains("podcast lisätty onnistuneesti."));
     }
 
-    @When("valid link name {string}, publisher {string}, url {string} and rrs {string} are entered twice and input is confirmed")
-    public void validLinkNamePublisherUrlAndRrsAreEnteredTwiceAndInputIsConfirmed(String name, String publisher, String url, String rrs) {
+    @When("valid link name {string}, publisher {string}, url {string} and rss {string} are entered twice and input is confirmed")
+    public void validLinkNamePublisherUrlAndrssAreEnteredTwiceAndInputIsConfirmed(String name, String publisher, String url, String rss) {
         input.add(name);
         input.add(publisher);
         input.add(url);
-        input.add(rrs);
+        input.add(rss);
         input.add("k");
         input.add("3");
         input.add(name);
         input.add(publisher);
         input.add(url);
-        input.add(rrs);
+        input.add(rss);
         input.add("k");
 
         runUi();
@@ -296,12 +320,72 @@ public class Stepdefs {
         input.add("q");
         runUi();
     }
-
-    @Then("podcast is not found")
-    public void podcastIsNotFound() {
-        assertTrue(io.getOutput().contains("Ei tuloksia."));
+    
+    @Given("command search link is selected")
+    public void searchLinkIsSelected() {
+        input.add("2");
+    }
+    
+    @When("existing link {string} is entered")
+    public void existingLinkIsEntered(String name) {
+        input.add(name);
+        input.add("q");
+        runUi();
+    }
+    
+    @When("nonexisting link {string} is entered")
+    public void nonexistingLinkIsEntered(String name) {
+        input.add(name);
+        input.add("q");
+        runUi();
+    }
+    
+    @When("list links is selected")
+    public void commandListLinksIsSelected() {
+        input.add("2");
+        runUi();
+    }
+    
+    @When("list podcasts is selected")
+    public void commandListPodcastsIsSelected() {
+        input.add("3");
+        runUi();
+    }
+    
+    @When("list books is selected")
+    public void commandListBooksIsSelected() {
+        input.add("1");
+        runUi();
+    }
+    
+    @When("list all is selected")
+    public void commandListAllIsSelected() {
+        input.add("4");
+        runUi();
+    }
+    
+    @When("wrong parameter {string} is entered")
+    public void wrongParameterIsEntered(String string) {
+        input.add("string");
+        runUi();
+    }
+    
+    @Then("commandlist is shown again")
+    public void commandListIsShown() {
+        boolean found = false;
+        for (String line : io.getOutput()) {
+            if (line.contains("komennot:")) {
+                found = true;
+            }
+        }
+        assertTrue(found);
     }
 
+    @Then ("new bookmark for a link is not created") 
+    public void linkIsNotCreated() {
+        assertTrue(io.getOutput().contains("Linkin lisääminen ei onnistunut."));
+    }
+    
     private void runUi() {
         io = new StubIO(input);
         ui = new Ui(io, service);

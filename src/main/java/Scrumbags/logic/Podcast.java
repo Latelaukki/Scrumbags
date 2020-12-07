@@ -6,13 +6,13 @@ public class Podcast {
     String name;
     String publisher;
     String url;
-    String rrs;
+    String rss;
     
-    public Podcast(String name, String publisher, String url, String rrs){
+    public Podcast(String name, String publisher, String url, String rss){
         this.name = name;
         this.publisher = publisher;
-        this. url = url;
-        this.rrs = rrs;
+        this.url = url;
+        this.rss = rss;
     }
 
     public String getName() {
@@ -39,12 +39,12 @@ public class Podcast {
         this.url = url;
     }
 
-    public String getRrs() {
-        return rrs;
+    public String getrss() {
+        return rss;
     }
 
-    public void setRrs(String rrs) {
-        this.rrs = rrs;
+    public void setrss(String rss) {
+        this.rss = rss;
     }
 
     @Override
@@ -68,7 +68,7 @@ public class Podcast {
         if (!Objects.equals(this.url, other.url)) {
             return false;
         }
-        if (!Objects.equals(this.rrs, other.rrs)) {
+        if (!Objects.equals(this.rss, other.rss)) {
             return false;
         }
         return true;
@@ -79,7 +79,7 @@ public class Podcast {
         return "\nNimi: " + this.name 
                 + "\nJulkaisija: " + this.publisher
                 + "\n url: " + this.url
-                + "\n rrs: " + this.rrs;
+                + "\n rss: " + this.rss;
     }
     
     

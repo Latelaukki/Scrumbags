@@ -12,21 +12,6 @@ public class Service {
         this.database = database;
     }
 
-    // Lisättäessä nimellä ja kirjailijalla, tarkistaa onko samannimistä kirjaa olemassa jolla on isbn.
-    // Ei hyväksytä duplaria jos saman niminen isbn:llä varustettu löytyy
-    // Tämä lisäystominto ei ole vielä käyttöliittymän käytössä
-    public boolean addBook(String name, String author) {
-        Book book = new Book(name, author);
-        if (bookNameExists(name)) {
-            for (Book b : getBooksByName(name)) {
-                if (!b.getIsbn().equals("---") || b.getIsbn().equals("")) {
-                    return false;
-                }
-            }
-        }
-        return this.database.addBook(book);
-    }
-
     public boolean addBook(String name, String author, String isbn, int pages, int year) {
         Book book = new Book(name, author, isbn, pages, year);
         if (bookIsbnExists(isbn)) {
@@ -50,13 +35,13 @@ public class Service {
         return this.database.addLink(link);
     }
 
-    public boolean addPodcast(String name, String publisher, String url, String rrs) {
+    public boolean addPodcast(String name, String publisher, String url, String rss) {
         if (getPodcastsByName(name) != null) {
             System.out.println("Virhe: Podcastin nimi on jo käytössä.");
             return false;
         }
 
-        Podcast podcast = new Podcast(name, publisher, url, rrs);
+        Podcast podcast = new Podcast(name, publisher, url, rss);
         return this.database.addPodcast(podcast);
     }
 
