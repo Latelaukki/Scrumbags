@@ -135,7 +135,7 @@ public class Ui {
 
     private void search() {
         io.print("Haetaanko:");
-        io.print("1) kirjaa");
+        io.print("1) kirjaa?");
         io.print("2) linkkiä?");
         io.print("3) podcastia?");
         komento = io.nextLine();
@@ -150,7 +150,7 @@ public class Ui {
 
     private void delete() {
         io.print("Haluatko poistaa:");
-        io.print("1) Kirjan");
+        io.print("1) Kirjan?");
         io.print("2) Linkin?");
         io.print("3) Podcastin?");
         komento = io.nextLine();
