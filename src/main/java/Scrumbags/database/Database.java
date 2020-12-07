@@ -25,7 +25,7 @@ public class Database implements Dao {
             Statement s = conn.createStatement();
             s.execute(ctinx + "Books (name TEXT, author TEXT, year INTEGER, pages INTEGER, isbn TEXT);");
             s.execute(ctinx + "Links (name TEXT, address TEXT UNIQUE);");
-            s.execute(ctinx + "podcasts (name TEXT UNIQUE, publisher TEXT, url TEXT, rss TEXT);");
+            s.execute(ctinx + "Podcasts (name TEXT UNIQUE, publisher TEXT, url TEXT, rss TEXT);");
             s.close();
         } catch (SQLException ex) {
             System.out.println("Virhe luotaessa tietokantatauluja. Yritä käynnistää ohjelma uudestaan.");
