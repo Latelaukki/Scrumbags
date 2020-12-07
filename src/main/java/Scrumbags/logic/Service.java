@@ -77,9 +77,9 @@ public class Service {
         int i = 1;
         for (Link l : linklist) {
             if (i == Integer.parseInt(id)) {
-                url = l.address;
-                i++;
+                url = l.getAddress();
             }
+            i++;
         }
         System.out.println("url: " + url);
         return this.database.removeLink(url);
