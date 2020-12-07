@@ -304,7 +304,6 @@ public class Stepdefs {
     @When("existing podcast {string} is selected")
     public void existingPodcastIsSelected(String name) {
         input.add(name);
-        input.add("q");
         runUi();
     }
 
