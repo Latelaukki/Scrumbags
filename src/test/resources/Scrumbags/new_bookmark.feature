@@ -34,3 +34,8 @@ Feature: User can create new bookmark
         Given command add podcast is selected
         When  valid link name "Elämänohjeita with Rölli-peikko", publisher "Rölli-peikko", url "rolli.fi" and rss "ASCDEFGH" are entered twice and input is confirmed
         Then  cannot add another podcast with same name
+
+    Scenario: user can cancel creating new bookmark for podcast
+        Given command add podcast is selected
+        When  valid podcast name "Elämänohjeita with Rölli-peikko", publisher "Rölli-peikko", url "rolli.fi" and rss "ASCDEFGH" are entered and input is not confirmed
+        Then  new bookmark for a podcast is not created

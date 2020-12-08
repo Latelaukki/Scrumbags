@@ -20,3 +20,10 @@ Feature: User can delete link
         When nonexisting link "pölyhuisku" is entered
         Then search has no results
         And link is not deleted
+
+    Scenario: user can cancel deleting a link
+        Given command delete is selected
+        And type "link" is selected
+        When existing link "Google" is entered
+        And delete of item number 1 is selected and not confirmed
+        Then link is not deleted
