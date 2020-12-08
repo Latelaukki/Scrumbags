@@ -8,10 +8,10 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class HakuTest {
+public class SearchDeleteTest {
     Service service;
     
-    public HakuTest() {
+    public SearchDeleteTest() {
         this.service = new Service(new DatabaseMock());
     }
     
@@ -48,6 +48,13 @@ public class HakuTest {
             }
         }
         assertEquals(true, found);
+    }
+    
+    @Test
+    public void isbnSearchReturnsNullIfIsbnIsEmpty() {
+        this.service.addBook("Marmeladit", "A. Happonen", "---", 50, 2005);
+        ArrayList<Book> booklist = this.service.getBookByIsbn("---");
+        assertNull(booklist);
     }
 
     @Test
@@ -87,6 +94,19 @@ public class HakuTest {
         boolean found = false;
         for (Book b: booklist) {
             if (b.getName().equals("ABC") && b.getIsbn().equals("123-14") && b.getPages() == 50 && b.getYear() == 2005) {
+                found = true;
+            }
+        }
+        assertEquals(true, found);
+    }
+    
+    @Test
+    public void nameSearchReturnsRightLink() {
+        this.service.addLink("Kotikokki", "http://www.kotikokki.fi");
+        ArrayList<Link> linklist = this.service.getLinksByName("Kotikokki");
+        boolean found = false;
+        for (Link l: linklist) {
+            if (l.getName().equals("Kotikokki") && l.getAddress().equals("http://www.kotikokki.fi")) {
                 found = true;
             }
         }
@@ -143,21 +163,63 @@ public class HakuTest {
         assertEquals(true, found);
     }
 
-    //PULL REQUEST LISÄYS BY Themis1
     @Test
     public void bookSearchIsNotNull() {
         this.service.addBook("ABC", "Taavi", "123-14", 50, 2005);
         ArrayList<Book> booklist = this.service.getBooks("Taavi", "1");
-        boolean found = this.service.bookNameExists("ABC");
-        assertEquals(true, found);
+        assertNotNull(booklist);
     }
 
     @Test
     public void bookSearchIsNull() {
         this.service.addBook("ABC", "Taavi", "123-14", 50, 2005);
-        ArrayList<Book> booklist = this.service.getBooks("Taavi", "1");
         boolean found = this.service.bookNameExists("ABCD");
         assertEquals(false, found);
     }    
+    
+    @Test
+    public void deleteBookRemovesBook() {
+        this.service.addBook("ABC", "Taavi", "123-14", 50, 2005);
+        ArrayList<Book> booklist = this.service.getAllBooks();
+        this.service.removeBook(booklist, "1");
+        ArrayList<Book> booklist2 = this.service.getAllBooks();
+        boolean found = false;
+        for (Book b: booklist2) {
+            if (b.getName().equals("ABC") && b.getIsbn().equals("123-14") && b.getPages() == 50 && b.getYear() == 2005) {
+                found = true;
+            }
+        }
+        assertFalse(found);
+    }
+    
+    @Test
+    public void deleteLinkRemovesLink() {
+        this.service.addLink("Kotikokki", "http://www.kotikokki.fi");
+        ArrayList<Link> linklist = this.service.getAllLinks();
+        this.service.removeLink(linklist, "1");
+        ArrayList<Link> linklist2 = this.service.getAllLinks();
+        boolean found = false;
+        for (Link l : linklist2) {
+            if (l.getName().equals("Kotikokki") && l.getAddress().equals("http://www.kotikokki.fi")) {
+                found =true;
+            }
+        }
+        assertFalse(found);
+    }
+    
+    @Test
+    public void deletePodcastRemovesPodcast() {
+        this.service.addPodcast("Historiavartti", "YLE", "http://yle.fi/podit/historiavartti", "---");
+        ArrayList<Podcast> castlist = this.service.getAllPodcasts();
+        this.service.removePodcast(castlist,"1");
+        ArrayList<Podcast> castlist2 = this.service.getAllPodcasts();
+        boolean found = false;
+        for (Podcast c: castlist2) {
+            if (c.getName().equals("Historiavartti") && c.getPublisher().equals("YLE") && c.getUrl().equals("http://yle.fi/podit/historiavartti")) {
+                found = true;
+            }
+        }
+        assertFalse(found);
+    }
 
 }

@@ -31,32 +31,47 @@ public class DatabaseMock implements Dao {
     
     @Override
     public boolean removeBook(String isbn, String name) {
+        Book removable = null;
         for (Book b: this.books) {
             if (b.getIsbn().equals(isbn) && b.getName().equals(name)) {
-                books.remove(b);
+                removable = b;
             }
         }
-        return true;
+        if (removable != null){
+            books.remove(removable);
+            return true;
+        }
+        return false;
     }
     
     @Override
     public boolean removeLink(String url) {
+        Link removable = null;
         for (Link l: this.links) {
             if (l.getAddress().equals(url)) {
-                links.remove(l);
+                removable = l;
             }
         }
-        return true;
+        if (removable != null){
+            links.remove(removable);
+            return true;
+        }
+        return false;
     }
 
     @Override
     public boolean removePodcast(String name) {
+        Podcast removable = null;
         for (Podcast p: this.podcasts) {
             if (p.getName().equals(name)) {
-                links.remove(p);
+                removable = p;
             }
         }
-        return true;
+        if (removable != null){
+            podcasts.remove(removable);
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -66,6 +81,9 @@ public class DatabaseMock implements Dao {
             if (b.getAuthor().equals(author)) {
                 booklist.add(b);
             }
+        }
+        if (booklist.isEmpty()){
+            return null;
         }
         return booklist;
     }

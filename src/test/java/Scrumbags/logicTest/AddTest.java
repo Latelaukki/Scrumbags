@@ -15,14 +15,14 @@ import Scrumbags.database.*;
 /**
 * Perustestit tietokantaan lisäämiselle
 */
-public class LisaysTest {
+public class AddTest {
     private final ByteArrayOutputStream testOut = new ByteArrayOutputStream();
     private final PrintStream sysOut = System.out;
     
     Service service;
     ArrayList<String> errMsgs;
     
-    public LisaysTest() {
+    public AddTest() {
         this.service = new Service(new DatabaseMock());
         this.errMsgs = new ArrayList<>();
     }
