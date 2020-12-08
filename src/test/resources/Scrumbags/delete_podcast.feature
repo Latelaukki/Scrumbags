@@ -1,4 +1,4 @@
-Feature: User can delete link
+Feature: User can delete podcast
 
     Scenario: user can delete existing podcast by name
         Given command delete is selected

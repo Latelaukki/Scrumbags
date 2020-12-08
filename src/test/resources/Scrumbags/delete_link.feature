@@ -14,7 +14,7 @@ Feature: User can delete link
         And delete of item number 1 is selected and not confirmed
         Then link is not deleted
 
-    Scenario: user can't delete non-existing link
+    Scenario: user can't delete nonexisting link
         Given command delete is selected
         And type "link" is selected
         When nonexisting link "pölyhuisku" is entered
