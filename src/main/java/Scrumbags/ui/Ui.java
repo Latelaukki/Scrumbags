@@ -46,7 +46,7 @@ public class Ui {
                     + "1) Lisää kirja\n"
                     + "2) Lisää linkki\n"
                     + "3) Lisää podcast\n"
-                    + "4) Hae kirjamerkkejä\n"
+                    + "4) Hae lukuvinkkejä\n"
                     + "5) Listaa kaikki lukuvinkit\n"
                     + "6) Poista lukuvinkki\n\n"
                     + "Anna komennon numero:");
