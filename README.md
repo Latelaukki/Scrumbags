@@ -52,26 +52,29 @@ Sovelluksen käynnistymisen jälkeen sovellus listaa käytettävissä olevan toi
 
 ```
 komennot:
-q
-add book
-add link
-search
+q) Poistu ohjelmasta
+1) Lisää kirja
+2) Lisää linkki
+3) Lisää podcast
+4) Hae kirjamerkkejä
+5) Listaa kaikki lukuvinkit
+6) Poista lukuvinkki
 ```
 
 Tämän jälkeen käyttäjää pyydetään valitsemaan jokin yllä listatuista toiminnoista:
 
 ```
-Anna komento:
+Anna komennon numero:
 
 ```
 
 #### Kirjan lisääminen
 
-Syötä komento `add book`:
+Syötä komento `1`:
 
 ```
 Anna komento:
-add book
+1
 ```
 ja paina `Enter`.
 
@@ -91,9 +94,9 @@ Anna kirjailijan nimi.
 Testi Kirjailija
 Anna ISBN.
 123-456
-Anna kirjain sivumäärä
+Anna kirjan sivumäärä
 500
-Anna kirjain julkaisuvuosi
+Anna kirjan julkaisuvuosi
 2020
 ```
 
@@ -106,10 +109,10 @@ KIRJAILIJA: Testi Kirjailija
 ISBN: 123-456
 SIVUMÄÄRÄ: 500
 JULKAISUVUOSI: 2020
-ONKO OK? [y/n]
+ONKO OK? [k/e]
 ```
 
-Jos syötteet ovat oikein, syötä `y` ja paina `Enter`. Muussa tapauksessa syötä `n` ja paina `Enter`.
+Jos syötteet ovat oikein, syötä `k` ja paina `Enter`. Muussa tapauksessa syötä `e` ja paina `Enter`.
 
 Jos kirjan lisääminen tapahtui onnistuneesti, käyttöliittymä ilmoittaa seuraavasti:
 
@@ -117,11 +120,11 @@ Jos kirjan lisääminen tapahtui onnistuneesti, käyttöliittymä ilmoittaa seur
 Kirja lisätty onnistuneesti.
 ```
 #### Linkin lisääminen
-Syötä komento `add book`:
+Syötä komento `2`:
 
 ```
 Anna komento:
-add link
+2
 ```
 ja paina `Enter`.
 
@@ -143,15 +146,63 @@ Tämän jälkeen käyttäjältä varmistetaan vielä, onko annetut tiedot oikein
 LISÄTÄÄN URL: 
 NIMI: Ohjelmistotuotanto 2020
 URL: https://ohjelmistotuotanto-hy.github.io/
-ONKO OK? [y/n]
+ONKO OK? [k/e]
 ```
 
-Jos syötteet ovat oikein, syötä `y` ja paina `Enter`. Muussa tapauksessa syötä `n` ja paina `Enter`. 
+Jos syötteet ovat oikein, syötä `k` ja paina `Enter`. Muussa tapauksessa syötä `e` ja paina `Enter`. 
 
 Jos linkin lisääminen tapahtui onnistuneesti, käyttöliittymä ilmoittaa seuraavasti:
 
 ```
 Linkki lisätty onnistuneesti.
+```
+
+#### Podcastin lisääminen
+
+Syötä komento `3`:
+
+```
+Anna komento:
+3
+```
+ja paina `Enter`.
+
+Tämän jälkeen anna yksi kerrallaan:
+- Podcastin nimi
+- Julkaisijan nimi
+- Podcastin osoite (url)
+- Podcastin rss
+
+Esimerkiksi:
+
+```
+Anna podcastin nimi (pakollinen tieto).
+BBC Newscast
+Anna julkaisijan nimi (ohita syöttämällä "q").
+BBC
+Anna url (ohita syöttämällä "q").
+https://www.bbc.co.uk/programmes/p05299nl/episodes/downloads
+Anna podcastin rss (ohita syöttämällä "q")
+https://podcasts.files.bbci.co.uk/p05299nl.rss
+```
+
+Tämän jälkeen käyttäjältä varmistetaan vielä, onko annetut tiedot oikein:
+
+```
+LISÄTÄÄN PODCAST: 
+NIMI: BBC Newscast
+julkaisija: BBC
+url: https://www.bbc.co.uk/programmes/p05299nl/episodes/downloads
+rss: https://podcasts.files.bbci.co.uk/p05299nl.rss
+ONKO OK? [k/e]
+```
+
+Jos syötteet ovat oikein, syötä `k` ja paina `Enter`. Muussa tapauksessa syötä `e` ja paina `Enter`. 
+
+Jos podcastin lisääminen tapahtui onnistuneesti, käyttöliittymä ilmoittaa seuraavasti:
+
+```
+Podcast lisätty onnistuneesti.
 ```
 
 #### Sovelluksen sulkeminen
