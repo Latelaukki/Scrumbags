@@ -186,6 +186,8 @@ public class Ui {
                 } else {
                     io.print("Podcastin poistaminen epäonnistui");
                 }
+            } else {
+                io.print("Lukuvinkkiä ei poistettu.");
             }
         } else {
             io.print("Ei tuloksia.");
@@ -213,6 +215,8 @@ public class Ui {
                 } else {
                     io.print("Linkin poistaminen epäonnistui");
                 }
+            } else {
+                io.print("Lukuvinkkiä ei poistettu.");
             }
         } else {
             io.print("Ei tuloksia.");
@@ -251,6 +255,8 @@ public class Ui {
                 } else {
                     io.print("Kirjan poistaminen epäonnistui");
                 }
+            } else {
+                io.print("Lukuvinkkiä ei poistettu.");
             }
         } else {
             io.print("Ei tuloksia.");
@@ -358,6 +364,8 @@ public class Ui {
             } else {
                 io.print("Kirjan lisääminen ei onnistunut.");
             }
+        } else {
+            io.print("Lukuvinkkiä ei lisätty.");
         }
     }
 
@@ -392,6 +400,8 @@ public class Ui {
             } else {
                 io.print("Podcastin lisääminen ei onnistunut.");
             }
+        } else {
+            io.print("Lukuvinkkiä ei lisätty.");
         }
     }
 
@@ -415,6 +425,8 @@ public class Ui {
             } else {
                 io.print("Linkin lisääminen ei onnistunut.");
             }
+        }else {
+            io.print("Lukuvinkkiä ei lisätty.");
         }
     }
 
@@ -445,26 +457,6 @@ public class Ui {
                 input = io.nextLine();
             }
         }
-    }
-
-    private boolean checkIfNumber(String sana) {
-        if (sana == null) {
-            return false;
-        }
-        try {
-            int d = Integer.parseInt(sana);
-        } catch (NumberFormatException nfe) {
-            io.print("Anna numero tai kirjoita \"q\"");
-            return false;
-        }
-        return true;
-    }
-
-    private boolean checkIfQ(String sana) {
-        if (sana.equals("q")) {
-            return true;
-        }
-        return false;
     }
 
     private boolean yesNo() {
