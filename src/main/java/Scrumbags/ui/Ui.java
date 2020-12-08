@@ -376,16 +376,16 @@ public class Ui {
         String rss;
 
         io.print("Anna podcastin nimi (pakollinen tieto).");
-        nimi = promptTextInput("Anna kirjan nimi (vähintään yhden merkin pituinen).", false);
+        nimi = promptTextInput("Anna podcastin nimi (vähintään yhden merkin pituinen).", false);
 
         io.print("Anna julkaisijan nimi (ohita syöttämällä \"q\").");
-        julkaisija = promptTextInput("Anna kirjailijan nimi tai ohita syöttämällä \"q\"", true);
+        julkaisija = promptTextInput("Anna julkaisijan nimi tai ohita syöttämällä \"q\"", true);
 
         io.print("Anna url (ohita syöttämällä \"q\").");
-        url = promptTextInput("Anna ISBN tai ohita syöttämällä \"q\"", true);
+        url = promptTextInput("Anna url tai ohita syöttämällä \"q\"", true);
 
         io.print("Anna podcastin rss (ohita syöttämällä \"q\")");
-        rss = promptTextInput("Anna sivumäärä tai ohita syöttämällä \"q\"", true);
+        rss = promptTextInput("Anna rss tai ohita syöttämällä \"q\"", true);
 
         io.print("LISÄTÄÄN PODCAST: \n"
                 + "NIMI: " + nimi + "\n"
