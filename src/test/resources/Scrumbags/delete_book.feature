@@ -40,7 +40,7 @@ Feature: User can delete book
         Then search has no results
         And book is not deleted
 
-    Scenario: user can delete existing book by book author
+    Scenario: user can delete existing book by author
         Given command delete is selected
         And type "book" is selected
         And search attribute "author" is selected
@@ -48,7 +48,7 @@ Feature: User can delete book
         And delete of item number 1 is selected and confirmed
         Then book is deleted
 
-    Scenario: user can't delete nonexisting book by book author
+    Scenario: user can't delete nonexisting book by author
         Given command delete is selected
         And type "book" is selected
         And search attribute "author" is selected
@@ -64,7 +64,7 @@ Feature: User can delete book
         And delete of item number 1 is selected and confirmed
         Then book is deleted
 
-    Scenario: user can't delete nonexisting book by book author
+    Scenario: user can't delete nonexisting book by isbn
         Given command delete is selected
         And type "book" is selected
         And search attribute "author" is selected
