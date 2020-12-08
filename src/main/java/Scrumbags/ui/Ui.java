@@ -1,9 +1,9 @@
 package Scrumbags.ui;
 
 // Tästä pitänee tehdä injektio
-import java.util.Scanner;
 import Scrumbags.database.*;
 import Scrumbags.logic.*;
+
 import java.util.ArrayList;
 
 /**
@@ -116,8 +116,12 @@ public class Ui {
     }
     
     private void removeBook(ArrayList<Book> booklist) {
+        Book b;
         io.print("Anna kirjan nro, jonka haluat poistaa");
         komento = io.nextLine();
+        b = booklist.get(Integer.parseInt(komento) - 1);
+        io.print("Poistetaanko kirja: ");
+        io.print(b.toString());
         this.service.removeBook(booklist, komento);
     }
 
