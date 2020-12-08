@@ -80,7 +80,7 @@ public class Ui {
         io.print("2) kaikki linkit");
         io.print("3) kaikki podcastit");
         io.print("4) kaikki lukuvinkit");
-        komento = promptTextInput("valitse \"1\" (kaikki kirjat), \"2\" (kaikki linkit), \"3\" (kaikki podcastit) tai \"4\" (kaikki kirjamerkit)", false);
+        komento = promptTextInput("valitse \"1\" (kaikki kirjat), \"2\" (kaikki linkit), \"3\" (kaikki podcastit) tai \"4\" (kaikki lukuvinkit)", false);
         if (komento.equals("1")) {
             getAllBooks();
         } else if (komento.equals("2")) {
