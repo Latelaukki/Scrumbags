@@ -16,7 +16,7 @@ Feature: User can delete book
         And delete of item number 1 is selected and not confirmed
         And book is not deleted
 
-    Scenario: user can't delete non-existing book by name
+    Scenario: user can't delete nonexisting book by name
         Given command delete is selected
         And type "book" is selected
         And search attribute "book name" is selected
@@ -32,7 +32,7 @@ Feature: User can delete book
         And delete of item number 1 is selected and confirmed
         Then book is deleted
 
-    Scenario: user can't delete non-existing book by publishing year
+    Scenario: user can't delete nonexisting book by publishing year
         Given command delete is selected
         And type "book" is selected
         And search attribute "publishing year" is selected
@@ -48,7 +48,7 @@ Feature: User can delete book
         And delete of item number 1 is selected and confirmed
         Then book is deleted
 
-    Scenario: user can't delete non-existing book by book author
+    Scenario: user can't delete nonexisting book by book author
         Given command delete is selected
         And type "book" is selected
         And search attribute "author" is selected
@@ -64,7 +64,7 @@ Feature: User can delete book
         And delete of item number 1 is selected and confirmed
         Then book is deleted
 
-    Scenario: user can't delete non-existing book by book author
+    Scenario: user can't delete nonexisting book by book author
         Given command delete is selected
         And type "book" is selected
         And search attribute "author" is selected
