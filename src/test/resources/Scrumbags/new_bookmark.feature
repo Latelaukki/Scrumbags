@@ -20,12 +20,22 @@ Feature: User can create new bookmark
         When  valid link name "Ohtu2020" and url "https://ohjelmistotuotanto-hy.github.io/" are entered and input is confirmed
         Then  new bookmark for a link is created
 
+    Scenario: user can't create links with same url
+        Given command add link is selected
+        When  valid link name "Kuukeli" and already taken url "http://www.google.com" are entered and input is confirmed
+        Then  new bookmark for a link is not created
+
     Scenario: user can create new bookmark for podcast
         Given command add podcast is selected
-        When  valid link name "Elämänohjeita with Rölli-peikko", publisher "Rölli-peikko", url "rolli.fi" and rrs "ASCDEFGH" are entered and input is confirmed
+        When  valid link name "Elämänohjeita with Rölli-peikko", publisher "Rölli-peikko", url "rolli.fi" and rss "ASCDEFGH" are entered and input is confirmed
         Then  new bookmark for a podcast is created
 
     Scenario: user can create new bookmark for podcast
         Given command add podcast is selected
-        When  valid link name "Elämänohjeita with Rölli-peikko", publisher "Rölli-peikko", url "rolli.fi" and rrs "ASCDEFGH" are entered twice and input is confirmed
+        When  valid link name "Elämänohjeita with Rölli-peikko", publisher "Rölli-peikko", url "rolli.fi" and rss "ASCDEFGH" are entered twice and input is confirmed
         Then  cannot add another podcast with same name
+
+    Scenario: user can cancel creating new bookmark for podcast
+        Given command add podcast is selected
+        When  valid podcast name "Elämänohjeita with Rölli-peikko", publisher "Rölli-peikko", url "rolli.fi" and rss "ASCDEFGH" are entered and input is not confirmed
+        Then  new bookmark for a podcast is not created

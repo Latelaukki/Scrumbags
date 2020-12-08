@@ -25,7 +25,7 @@ public class Database implements Dao {
             Statement s = conn.createStatement();
             s.execute(ctinx + "Books (name TEXT, author TEXT, year INTEGER, pages INTEGER, isbn TEXT);");
             s.execute(ctinx + "Links (name TEXT, address TEXT UNIQUE);");
-            s.execute(ctinx + "podcasts (name TEXT UNIQUE, publisher TEXT, url TEXT, rrs TEXT);");
+            s.execute(ctinx + "Podcasts (name TEXT UNIQUE, publisher TEXT, url TEXT, rss TEXT);");
             s.close();
         } catch (SQLException ex) {
             System.out.println("Virhe luotaessa tietokantatauluja. Yritä käynnistää ohjelma uudestaan.");
@@ -85,15 +85,15 @@ public class Database implements Dao {
         String name = podcast.getName();
         String publisher = podcast.getPublisher();
         String url = podcast.getUrl();
-        String rrs = podcast.getRrs();
+        String rss = podcast.getrss();
 
         try (Connection conn = this.ldb.getConnection()) {
-            PreparedStatement stmt = conn.prepareStatement("INSERT INTO Podcasts(name, publisher, url, rrs) VALUES (?, ?, ?, ?)");
+            PreparedStatement stmt = conn.prepareStatement("INSERT INTO Podcasts(name, publisher, url, rss) VALUES (?, ?, ?, ?)");
 
             stmt.setString(1, name);
             stmt.setString(2, publisher);
             stmt.setString(3, url);
-            stmt.setString(4, rrs);
+            stmt.setString(4, rss);
 
             stmt.executeUpdate();
             stmt.close();
@@ -311,7 +311,7 @@ public class Database implements Dao {
             stmt.setString(1, name);
             ResultSet res = stmt.executeQuery();
             while (res.next()) {
-                Podcast podcast = new Podcast(res.getString("name"), res.getString("publisher"), res.getString("url"), res.getString("rrs"));
+                Podcast podcast = new Podcast(res.getString("name"), res.getString("publisher"), res.getString("url"), res.getString("rss"));
                 podcastlist.add(podcast);
             }
             stmt.close();
@@ -331,7 +331,7 @@ public class Database implements Dao {
             PreparedStatement stmt = conn.prepareStatement("SELECT * FROM Podcasts");
             ResultSet res = stmt.executeQuery();
             while (res.next()) {
-                Podcast podcast = new Podcast(res.getString("name"), res.getString("publisher"), res.getString("url"), res.getString("rrs"));
+                Podcast podcast = new Podcast(res.getString("name"), res.getString("publisher"), res.getString("url"), res.getString("rss"));
                 podcastlist.add(podcast);
             }
             stmt.close();
