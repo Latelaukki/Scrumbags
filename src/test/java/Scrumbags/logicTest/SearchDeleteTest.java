@@ -27,6 +27,14 @@ public class SearchDeleteTest {
         }
         assertEquals(true, found);
     }
+    
+    @Test
+    public void searchBookByAuthorReturnsNullWhenThereIsNoBooks() {
+        this.service.addBook("Aapinen", "Nobody", "---", -1, -1);
+        this.service.addBook("Bk", "Nobody", "---", -1, -1);
+        this.service.addBook("MAGA", "Nobody", "---", -1, -1);
+        assertNull(this.service.getBooksByAuthor("Tuntematon"));
+    }
 
     @Test
     public void bookAmountIsRight() {
@@ -53,6 +61,7 @@ public class SearchDeleteTest {
     @Test
     public void isbnSearchReturnsNullIfIsbnIsEmpty() {
         this.service.addBook("Marmeladit", "A. Happonen", "---", 50, 2005);
+        this.service.addBook("Marmeladit", "A. Happonen", "444-444", 50, 2005);
         ArrayList<Book> booklist = this.service.getBookByIsbn("---");
         assertNull(booklist);
     }
@@ -193,6 +202,13 @@ public class SearchDeleteTest {
     }
     
     @Test
+    public void deleteBookDoesNotRemoveIfBookDoesNotExist() {
+        this.service.addBook("ABC", "Taavi", "123-14", 50, 2005);
+        ArrayList<Book> booklist = this.service.getAllBooks();
+        assertFalse(this.service.removeBook(booklist, "2"));
+    }
+    
+    @Test
     public void deleteLinkRemovesLink() {
         this.service.addLink("Kotikokki", "http://www.kotikokki.fi");
         ArrayList<Link> linklist = this.service.getAllLinks();
@@ -205,6 +221,13 @@ public class SearchDeleteTest {
             }
         }
         assertFalse(found);
+    }
+    
+    @Test
+    public void deleteLinkDoesNotRemoveIfLinkDoesNotExist() {
+        this.service.addBook("ABC", "Taavi", "123-14", 50, 2005);
+        ArrayList<Link> linklist = this.service.getAllLinks();
+        assertFalse(this.service.removeLink(linklist, "1"));
     }
     
     @Test
@@ -221,5 +244,12 @@ public class SearchDeleteTest {
         }
         assertFalse(found);
     }
+    
+    @Test
+    public void deletePodcastDoesNotRemoveIfPodcastDoesNotExist() {
+        ArrayList<Podcast> podcastlist = this.service.getAllPodcasts();
+        assertFalse(this.service.removePodcast(podcastlist, "1"));
+    }
+    
 
 }
