@@ -274,7 +274,7 @@ public class Stepdefs {
     }
 
     @When("valid link name {string}, publisher {string}, url {string} and rss {string} are entered twice and input is confirmed")
-    public void validLinkNamePublisherUrlAndrssAreEnteredTwiceAndInputIsConfirmed(String name, String publisher, String url, String rss) {
+    public void validPodcastNamePublisherUrlAndrssAreEnteredTwiceAndInputIsConfirmed(String name, String publisher, String url, String rss) {
         input.add(name);
         input.add(publisher);
         input.add(url);
@@ -286,6 +286,17 @@ public class Stepdefs {
         input.add(url);
         input.add(rss);
         input.add("k");
+
+        runUi();
+    }
+    
+    @When("valid podcast name {string}, publisher {string}, url {string} and rss {string} are entered and input is not confirmed")
+    public void validPodcastNamePublisherUrlAndrssAreEnteredAndInputIsNotConfirmed(String name, String publisher, String url, String rss) {
+        input.add(name);
+        input.add(publisher);
+        input.add(url);
+        input.add(rss);
+        input.add("e");
 
         runUi();
     }
@@ -379,6 +390,11 @@ public class Stepdefs {
     @Then("new bookmark for a link is not created")
     public void linkIsNotCreated() {
         assertTrue(io.getOutput().contains("Linkin lisääminen ei onnistunut."));
+    }
+    
+    @Then("new bookmark for a podcast is not created")
+    public void podCastIsNotCreated() {
+        assertFalse(io.getOutput().contains("podcast lisätty onnistuneesti."));
     }
 
     @Given("command delete is selected")
