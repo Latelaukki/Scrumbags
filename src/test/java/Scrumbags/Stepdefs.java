@@ -439,7 +439,6 @@ public class Stepdefs {
         } else if (not.isEmpty()) {
             assertTrue(io.getOutput().contains(string + " poistettu onnistuneesti"));
         }
-
     }
 
     private void runUi() {
