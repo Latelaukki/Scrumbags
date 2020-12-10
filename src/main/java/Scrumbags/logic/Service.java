@@ -59,6 +59,9 @@ public class Service {
     }
 
     public boolean removeBook(ArrayList<Book> booklist, String id) {
+        if (Integer.valueOf(id) > booklist.size()) {
+            return false;
+        }
         String isbn = "";
         String name = "";
         int i = 1;
@@ -73,6 +76,9 @@ public class Service {
     }
 
     public boolean removeLink(ArrayList<Link> linklist, String id) {
+        if (Integer.valueOf(id) > linklist.size()) {
+            return false;
+        }
         String url = "";
         int i = 1;
         for (Link l : linklist) {
@@ -86,6 +92,9 @@ public class Service {
     }
 
     public boolean removePodcast(ArrayList<Podcast> podlist, String id) {
+        if (Integer.valueOf(id) > podlist.size()) {
+            return false;
+        }
         String name = "";
         int i = 1;
         for (Podcast p: podlist) {
