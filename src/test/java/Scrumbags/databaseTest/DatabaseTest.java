@@ -7,7 +7,9 @@ package Scrumbags.databaseTest;
 
 import Scrumbags.database.*;
 import Scrumbags.logic.*;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.PrintStream;
 import java.util.ArrayList;
 
 import org.junit.After;
@@ -39,8 +41,15 @@ public class DatabaseTest {
     private Podcast bbc = new Podcast("BBC Newscast", "BBC", "https://www.bbc.co.uk/programmes/p05299nl/episodes/downloads", "https://podcasts.files.bbci.co.uk/p05299nl.rss");
     private Podcast pmh = new Podcast("Pieleen mennyt historia", "Yle", "https://areena.yle.fi/audio/1-50677839", "https://feeds.yle.fi/areena/v1/series/1-50677839.rss?lang=fi&downloadable=true");
 
+    private final ByteArrayOutputStream testOut = new ByteArrayOutputStream();
+    private final PrintStream sysOut = System.out;
+    
+    ArrayList<String> errMsgs;
+    
     @Before
     public void setUp() throws ClassNotFoundException {
+        System.setOut(new PrintStream(testOut));
+
         db = new Database("jdbc:sqlite:" + testDbName);
         db.addBook(joulupukinLomakirja);
         db.addLink(tira);
@@ -49,14 +58,14 @@ public class DatabaseTest {
 
     @After
     public void tearDown() {
-        try {
-            File db = new File(testDbName);
-            db.delete();
-        } catch (Exception e) {
-            System.out.println("Exception: " + e);
-        }
+        deleteDatabase();
+        System.setOut(sysOut);
     }
 
+    public DatabaseTest() {
+        this.errMsgs = new ArrayList<>();
+    }
+    
     @Test
     public void addingNewValidBookReturnsTrue() {
         assertTrue(db.addBook(kuinkaPuutKasvavat));
@@ -66,27 +75,59 @@ public class DatabaseTest {
     public void existingBookCanBeFoundByName() {
         assertTrue(db.getBooksByName("Joulupukin lomakirja").contains(joulupukinLomakirja));
     }
+    
+    @Test
+    public void getBooksByNameReturnsNullUponDatabaseError() {
+        deleteDatabase();
+        assertNull(db.getBooksByName("Joulupukin lomakirja"));
+    }
 
     @Test
     public void existingBookCanBeFoundByYear() {
         assertTrue(db.getBooksByYear(2020).contains(joulupukinLomakirja));
+    }
+    
+    @Test
+    public void getBooksByYearReturnsNullUponDatabaseError() {
+        deleteDatabase();
+        assertNull(db.getBooksByYear(2020));
     }
 
     @Test
     public void existingLinkCanBeFoundByName() {
         assertTrue(db.getLinksByName("Tietorakenteet ja algoritmit").contains(tira));
     }
-
+    
+    @Test
+    public void getLinksByNameReturnsNullUponDatabaseError() {
+        deleteDatabase();
+        assertNull(db.getLinksByName("Tietorakenteet ja algoritmit"));
+    }
+    
     @Test
     public void afterAddingNewValidBookItCanBeFoundByAuthor() {
         db.addBook(kuinkaPuutKasvavat);
         assertTrue(db.getBooksByAuthor("Saku Tuominen").contains(kuinkaPuutKasvavat));
+    }
+    
+    @Test
+    public void getBooksByAuthorReturnsNullUponDatabaseError() {
+        db.addBook(kuinkaPuutKasvavat);
+        deleteDatabase();
+        assertNull(db.getBooksByAuthor("Saku Tuominen"));
     }
 
     @Test
     public void afterAddingNewValidBookItCanBeFoundByISBN() {
         db.addBook(kuinkaPuutKasvavat);
         assertEquals(kuinkaPuutKasvavat, (db.getBookByIsbn("978-951-1-36427-6")));
+    }
+    
+    @Test
+    public void getBookByISBNReturnsNullUponDatabaseError() {
+        db.addBook(kuinkaPuutKasvavat);
+        deleteDatabase();
+        assertNull(db.getBookByIsbn("978-951-1-36427-6"));
     }
 
     @Test
@@ -192,6 +233,13 @@ public class DatabaseTest {
         db.addPodcast(sodoma);
         assertTrue(db.getPodcastsByName("Radio Sodoma").contains(sodoma));
     }
+    
+    @Test
+    public void getPodcastByNameReturnsNullUponDatabaseError() {
+        db.addPodcast(sodoma);
+        deleteDatabase();
+        assertNull(db.getPodcastsByName("Radio Sodoma"));
+    }
 
     @Test
     public void removingExistingPodcastReturnsTrue() {
@@ -223,6 +271,15 @@ public class DatabaseTest {
         db.removeBook(joulupukinLomakirja.getIsbn(), joulupukinLomakirja.getName());
         assertNull(db.getAllBooks());
     }
+    
+    @Test
+    public void getAllBooksReturnsNullUponDatabaseError() {
+        db.addBook(pizze);
+        db.addBook(kuinkaPuutKasvavat);
+        deleteDatabase();
+        
+        assertNull(db.getAllBooks());
+    }
 
     @Test
     public void getAllBooksReturnsOnlyExistingBooks() {
@@ -240,6 +297,14 @@ public class DatabaseTest {
     @Test
     public void getAllLinksReturnsNullIfListIsEmpty() {
         db.removeLink(tira.getAddress());
+        assertNull(db.getAllLinks());
+    }
+    
+    @Test
+    public void getAllLinksReturnsNullUponDatabaseError() {
+        db.addLink(ohtu);
+        deleteDatabase();
+        
         assertNull(db.getAllLinks());
     }
 
@@ -267,5 +332,87 @@ public class DatabaseTest {
         db.removePodcast(bbc.getName());
         assertNull(db.getAllPodcasts());
     }
+    
+    @Test
+    public void getAllPodcastsReturnsNullUponDatabaseError() {
+        db.addPodcast(pmh);
+        deleteDatabase();
+        
+        assertNull(db.getAllPodcasts());
+    }
+    
+    @Test
+    public void attemptToAddBookYieldsErrorMessageUponDatabaseError() {
+        deleteDatabase();
+        
+        db.addBook(tirakirja);
+        
+        this.errMsgs.add(testOut.toString());
+                
+        assertTrue(errMsgs.contains("Virhe tietokannan käsittelyssä: org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such table: Books)\n"));
+    }
+    
+    @Test
+    public void attemptToRemoveBookYieldsErrorMessageUponDatabaseError() {
+        deleteDatabase();
+        
+        db.removeBook(joulupukinLomakirja.getIsbn(), joulupukinLomakirja.getName());
+        
+        this.errMsgs.add(testOut.toString());
+        
+        assertTrue(errMsgs.contains("Virhe tietokannan käsittelyssä: org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such table: Books)\n"));
+    }
+    
+    @Test
+    public void attemptToAddLinkYieldsErrorMessageUponDatabaseError() {
+        deleteDatabase();
+        
+        db.addLink(tira);
+        
+        this.errMsgs.add(testOut.toString());
+                
+        assertTrue(errMsgs.contains("Virhe tietokannan käsittelyssä: 1\n"));
+    }
+    
+    @Test
+    public void attemptToRemoveLinkYieldsErrorMessageUponDatabaseError() {
+        deleteDatabase();
+        
+        db.removeLink(tira.getAddress());
+        
+        this.errMsgs.add(testOut.toString());
+        
+        assertTrue(errMsgs.contains("Virhe tietokannan käsittelyssä: org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such table: Links)\n"));
+    }
+    
+    @Test
+    public void attemptToAddPodcastYieldsErrorMessageUponDatabaseError() {
+        deleteDatabase();
+        
+        db.addPodcast(sodoma);
+        
+        this.errMsgs.add(testOut.toString());
+                
+        assertTrue(errMsgs.contains("Virhe tietokannan käsittelyssä: org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such table: Podcasts)\n"));
+    }
+    
+    @Test
+    public void attemptToRemovePodcastYieldsErrorMessageUponDatabaseError() {
+        deleteDatabase();
+        
+        db.removePodcast(bbc.getName());
+        
+        this.errMsgs.add(testOut.toString());
+                
+        assertTrue(errMsgs.contains("Virhe tietokannan käsittelyssä: org.sqlite.SQLiteException: [SQLITE_ERROR] SQL error or missing database (no such table: Podcasts)\n"));
+    }
 
+    private void deleteDatabase() {
+        try {
+            File db = new File(testDbName);
+            db.delete();
+        } catch (Exception e) {
+            System.out.println("Exception: " + e);
+        }
+    }
 }
