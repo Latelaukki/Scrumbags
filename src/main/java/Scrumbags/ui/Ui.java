@@ -177,9 +177,7 @@ public class Ui {
             }
             io.print("Anna poistettavan podcastin numero:");
             komento = io.nextLine();
-            if (Integer.valueOf(komento) >= podcastlist.size()) {
-                return;
-            }
+            
             io.print("Haluatko varmasti POISTAA LINKIN NRO. " + komento +": [k/e]");
             String ke = io.nextLine();
             if (ke.equals("k")) {
@@ -208,9 +206,7 @@ public class Ui {
             }
             io.print("Anna poistettavan linkin numero:");
             komento = io.nextLine();
-            if (Integer.valueOf(komento) >= linklist.size()) {
-                return;
-            }
+
             io.print("Haluatko varmasti POISTAA LINKIN NRO. " + komento +": [k/e]");
             String ke = io.nextLine();
             if (ke.equals("k")) {
@@ -239,8 +235,6 @@ public class Ui {
             io.print("Syötä nimi:");
         } else if (komento.equals("3") || komento.equals("4")) {
             io.print("Syötä luku:");
-        } else {
-            return;
         }
         String search = io.nextLine();
         ArrayList<Book> booklist = this.service.getBooks(search, komento);
@@ -252,9 +246,7 @@ public class Ui {
             }
             io.print("Anna poistettavan kirjan numero:");
             komento = io.nextLine();
-            if (Integer.valueOf(komento) >= booklist.size()) {
-                return;
-            }
+
             io.print("Haluatko varmasti POISTAA KIRJAN NRO. " + komento +": [k/e]");
             String ke = io.nextLine();
             if (ke.equals("k")) {
