@@ -205,6 +205,12 @@ Jos podcastin lisääminen tapahtui onnistuneesti, käyttöliittymä ilmoittaa s
 Podcast lisätty onnistuneesti.
 ```
 
+#### Hakeminen, poistaminen ja listaaminen
+
+Hakeminen, poistaminen ja listaaminen toimivat kaikki samalla periaatteella:
+ - Syötetään haettavan/poistettavan/listattavan kohteen parametrit
+ - Poistettaessa varmistetaan vielä poistettava kohde 
+
 #### Sovelluksen sulkeminen
 Syötä komento `q`:
 
