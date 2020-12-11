@@ -14,7 +14,7 @@ Lukuvinkkikirjasto<br>
 Käy lataamassa uusin [release](https://github.com/Latelaukki/Scrumbags/releases/tag/v2) ja käynnistä se komentoriviltä
 
 ```
-java -jar Scrumbags_v1.jar
+java -jar Scrumbags_v2.jar
 ```
 
 
