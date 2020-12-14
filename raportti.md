@@ -1,6 +1,7 @@
 **Miniprojektin raportti**
 
 *Ryhmä Scrumbags: Atte, Toni, Sanna, Rasmus, Lauri ja Tuomas*
+ 
 
 **Sprint 1**
 
@@ -25,3 +26,5 @@ Vertaispalautteen lisäksi ryhmä laatii projektin kulusta pienen raportin (noin
    - raportti palautetaan lisäämällä raporttiin linkki projektin GitHubin Readme:hen
    - raportista tulee ilmetä jokaisen projektiin osallistuneen nimi
    - raportin deadline lauantaina 19.12. klo 23:59
+
+
