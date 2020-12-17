@@ -33,7 +33,7 @@ Kolmas sprintti oli mahdollisesti kaikista helpoin taskien suunnittelun kannalta
 
 Viimeisessä sprintissä laajennettiin vielä testausta koko ohjelman osalta kun kaikki user storyt oltiin saatu tehtyä. Huomasimme että ohjelman rakenteen huolellinen suunnittelu on kannattavaa, koska se helpottaa tulevien toiminnallisuuksien lisäämisen ja varsinkin testaamisen ilman turhaa toisteisuutta. Kohtasimme loppua kohti lieviä copy/paste ongelmia koodissa jotka oltaisiin voitu mahdollisesti välttää. Tosin koska kyseessä on pikkuhiljaa product ownerin toiveiden mukaan laajennettava ohjelmisto, on vaikeaa alussa ohjelman rakennetta laatiessa tietää täsmällisesti mitä ominaisuuksia ohjelmaan tullaan lisäämään myöhemmin.
 
-Kolmannessa sprintissä merge-konflikteja syntyi vähemmän koska olimme tarkemmin määritelleet taskien ja tapaamisten avulla kuka tekee mitä ja milloin.
+Kolmannessa sprintissä merge-konflikteja syntyi vähemmän koska olimme tarkemmin määritelleet taskien ja tapaamisten avulla kuka tekee mitä ja milloin. Kaikin puolin työskentely sujui melko jouhevasti, sillä ryhmä oli ehtinyt jo hitsautua yhteen ja omaksuneet ryhmän käytänteet
 ________________________
 RAPORTIN OHJEET 
 
