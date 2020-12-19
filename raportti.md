@@ -1,7 +1,6 @@
 **Miniprojektin raportti**
 
-*Ryhmä Scrumbags: Atte, Toni, Sanna, Rasmus, Lauri ja Tuomas*
- 
+*Ryhmä Scrumbags: Lauri Aaltonen, Atte Martikainen, Sanna Korpi, Rasmus Marttila, Toni Rämö, Tuomas Koukkari*
 
 **Sprint 1**
 
