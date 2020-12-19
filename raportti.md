@@ -36,6 +36,11 @@ Viimeisessä sprintissä laajennettiin vielä testausta koko ohjelman osalta kun
 Huomasimme kolmannessa sprintissä, että mahdolliset korjaukset vaatisivat jo aika suurta määrää refaktorointia. Koska kyseessä oli kuitenkin sen verran pieni projekti, priorisoimme asiakkaalle arvoa tuottavia ominaisuuksia viimeisen päälle tehdyn refaktoroinnin sijaan, mikä säästi työtunteja, kun ohjelmaa ei ole kuitenkaan tarkoitus laajentaa tästä eteenpäin. Parempaan rakenteeseen olisi varmaan auttanut jossain määrin TDD eli testivetoinen kehitys, jossa testejä kirjoitetaan ennalta, jolloin tavoitteena olisi parempi ohjelmiston sisäinen laatu. Olisi ollut mielenkiintoista nähdä, millaiseen koodirakenteeseen tarkka TDD olisi johtanut. Olisiko aikaa loppujen lopuksi säästynyt, koska sisäinen laatu olisi paljon parempaa? Puhuimme siitä projektin alussa, mutta koska kellään ei ollut oikein rutiinia siihen, niin luultavasti työtunnit olisivat ylittyneet aika helposti, kun muutetaan aiemmin tunnettuja työtapoja merkittävästi.
 
 Kolmannessa sprintissä merge-konflikteja syntyi vähemmän koska olimme tarkemmin määritelleet taskien ja tapaamisten avulla kuka tekee mitä ja milloin. Kaikin puolin työskentely sujui melko jouhevasti, sillä ryhmä oli ehtinyt jo hitsautua yhteen ja omaksuneet ryhmän käytänteet
+
+**Yhteenveto**
+
+Ryhmän yhteistyö sujui hyvin alusta alkaen ja parani entisestään projektin edetessä; kaikki osallistuivat, ja asioista saatiin päätettyä ja työjärjestyksestä sovittua varsin kitkattomasti. Projekti eteni pitkälti suunnitelmien mukaan, ja olime tyytyväisiä lopputulokseen. Ongelmia aiheutti lähinnä se, ettei tiimissä oikein kenelläkään ollut aiempaa kokemusta tämäntapaisesta työskentelystä, mistä johtuen erityisesti alkuvaiheessa jouduttiin käyttämään vähiä työtunteja mm. asioiden opetteluun, erilaisiin bugikorjauksiin ja merge-konfliktien ratkontaan, eikä koodia tai ohjelman arkkitehtuuria kaikilta osin osattu alusta asti suunnitella helposti laajennettavaksi. Toisaalta näistä asioista saatiin oppia, jonka tulokset alkoivat näkyä jo projektin aikana, ja josta on varmasti hyötyä jatkossa.
+
 ________________________
 RAPORTIN OHJEET 
 
