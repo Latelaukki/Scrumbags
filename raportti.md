@@ -40,17 +40,3 @@ Kolmannessa sprintissä merge-konflikteja syntyi vähemmän, koska olimme tarkem
 
 Ryhmän yhteistyö sujui hyvin alusta alkaen ja parani entisestään projektin edetessä; kaikki osallistuivat, ja asioista saatiin päätettyä ja työjärjestyksestä sovittua varsin kitkattomasti. Projekti eteni pitkälti suunnitelmien mukaan, ja olime tyytyväisiä lopputulokseen. Ongelmia aiheutti lähinnä se, ettei tiimissä oikein kenelläkään ollut aiempaa kokemusta tämäntapaisesta työskentelystä, mistä johtuen erityisesti alkuvaiheessa jouduttiin käyttämään vähiä työtunteja mm. asioiden opetteluun, erilaisiin bugikorjauksiin ja merge-konfliktien ratkontaan, eikä koodia tai ohjelman arkkitehtuuria kaikilta osin osattu alusta asti suunnitella helposti laajennettavaksi. Toisaalta näistä asioista saatiin oppia, jonka tulokset alkoivat näkyä jo projektin aikana, ja josta on varmasti hyötyä jatkossa.
 
-________________________
-RAPORTIN OHJEET 
-
-Vertaispalautteen lisäksi ryhmä laatii projektin kulusta pienen raportin (noin 2 sivua)
-
-   - kerrataan jokaisen sprintin aikana kohdatut ongelmat (prosessiin-, projektityöskentelyyn- ja teknisiin asioihin liittyvät)
-   - mikä sujui projektissa hyvin, mitä pitäisi parantaa seuraavaa kertaa varten
-   - mitä asioita opitte, mitä asioita olisitte halunneet oppia, mikä tuntui turhalta
-   - jos raportti puuttuu, vähennetään ryhmältä 2 pistettä
-   - raportti palautetaan lisäämällä raporttiin linkki projektin GitHubin Readme:hen
-   - raportista tulee ilmetä jokaisen projektiin osallistuneen nimi
-   - raportin deadline lauantaina 19.12. klo 23:59
-
-
